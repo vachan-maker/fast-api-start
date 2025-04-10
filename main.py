@@ -26,5 +26,20 @@ async def get_todo(todo_id:int):
             return {"todo":todo}
     return {"message":"Todo not found"}
 # Update a todo
+@app.put("/todos/{todo_id}")
+async def put_todo(todo_id:int,todo_object:Todo):
+    for todo in todos:
+        if todo.id == todo_id:
+            todo.id = todo_id
+            todo.item = todo_object.item
+            return {"message: Item updated successfully"}
+    return {"message":"Todo not found"}
 
 # Delete a todo
+@app.delete("/todos/{todo_id}")
+async def delete_todo(todo_id:int):
+    for todo in todos:
+        if todo.id == todo_id:
+            todos.remove(todo)
+            return("Todo item deleted successfully")
+    return {"message":"Todo not found"}
